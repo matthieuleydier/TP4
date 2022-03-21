@@ -10,10 +10,11 @@ import array
 #outFileName= sys.argv[2]
 #print("Reading from", inFileName, "and writing to", outFileName)
 
-inFile=TFile("Bu2KpipiMM-Data-2011-MagDown-StrippingBu2LLK_fiducialMM_preselPIDMM_selected.root","READ")
+inFile=TFile("Bu2KpipiMM-Data-2011-MagDown-StrippingBu2LLK_fiducialMM_preselPIDMM_selected.root")
 intree = inFile.Get("DecayTree")
 
 # Not useful 
+
 Nentries =intree.GetEntries()
 print("Nentries : ", Nentries)
 
@@ -30,21 +31,21 @@ for branch in list_branches:
         print(branch)
 
 # Apply Sonia's cut : 
-LooseCut = "K_PIDK>-2   && abs(Jpsi_M-3097)<50 \
-&& muplus_TRACK_GhostProb<0.3 && muminus_TRACK_GhostProb<0.3  && K_TRACK_GhostProb<0.3 && (B_L0MuonDecision_TOS || B_L0DiMuonDe\
+LooseCut = "K_PIDK>-2 && muplus_TRACK_GhostProb<0.3 && muminus_TRACK_GhostProb<0.3  && K_TRACK_GhostProb<0.3 && (B_L0MuonDecision_TOS || B_L0DiMuonDe\
 cision_TOS) && B_DIRA_OWNPV > 0.9999"
 # && B_LOKI_DTF_CHI2NDOF<5               
+# Jpsi_nombre > 50 truc 
+
 
 ## New cutted file                                                                                                    
-#cutted_sample_path = /panfs/mleydier/Python_training/Project
-#cutted_sample_name = Cut + inFile.GetName()
-newfile = TFile("Bu2KpipiMM-Data-2011-MagDown-StrippingBu2LLK_fiducialMM_preselPIDMM_selected.root","RECREATE")
-#(cutted_sample_path + cutted_sample_name,"RECREATE")
+cutted_sample_path = '/panfs/mleydier/Python_training/Project/'
+cutted_sample_name = 'Cut_' + inFile.GetName()
+newfile = TFile(cutted_sample_path + cutted_sample_name,"RECREATE")
 newTree  = intree.CopyTree(LooseCut)
 
 # Writing in the new tree 
 print("Tree written with ", newTree.GetEntries(), " entries copied")
-#print "File saved at location: ", cutted_sample_path+cutted_sample_name
+print("File saved at location: ", cutted_sample_path+cutted_sample_name)
 newTree.Write()
 
 
