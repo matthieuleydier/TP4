@@ -2,15 +2,17 @@ import os,sys
 from ROOT import TH1D,TH2D,TFile,TTree,TCanvas
 import sys
 import array
-#if len(sys.argv) !=3:
-#    print("USAGE: %s <input file> <output file>"%(sys.argv[0]))
-#    sys.exit(1)
 
-#inFileName= sys.argv[1]
+# launch script with " Branches_name.py File.root " format
+if len(sys.argv) !=2:
+    print("USAGE: %s <input file> <output file>"%(sys.argv[0]))
+    sys.exit(1)
+
+inFileName= sys.argv[1]
 #outFileName= sys.argv[2]
 #print("Reading from", inFileName, "and writing to", outFileName)
-
-inFile=TFile("Bu2KpipiMM-Data-2011-MagDown-StrippingBu2LLK_fiducialMM_preselPIDMM_selected.root")
+inFile=TFile(inFileName)
+#inFile=TFile("Bu2KpipiMM-Data-2011-MagDown-StrippingBu2LLK_fiducialMM_preselPIDMM_selected.root")
 intree = inFile.Get("DecayTree")
 
 # Not useful 
